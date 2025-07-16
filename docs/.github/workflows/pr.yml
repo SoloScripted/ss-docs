@@ -1,0 +1,17 @@
+name: Lint HTML, CSS, JS
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: HTML Lint
+        uses: Cyb3r-Jak3/html5validator-action@v2
+        with:
+          root: docs/
+      - name: CSS Lint
+        run: npx stylelint "docs/**/*.css"
+      - name: JS Lint
+        run: npx eslint "docs/**/*.js"
