@@ -150,7 +150,7 @@ header p {
 }
 
 section {
-    margin-top: 5vh;
+    padding-top: 5vh;
     padding: 40px 0;
     border-bottom: 1px solid #e9ecef;
     min-height: 90vh;
