@@ -277,6 +277,10 @@ footer {
     .grid-3 {
         grid-template-columns: 1fr;
     }
+
+    .logo-nav ul {
+        display: none;
+    }
 }
 
 .contact-cards {
