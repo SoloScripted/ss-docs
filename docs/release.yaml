@@ -1,0 +1,30 @@
+# This GitHub Actions workflow automates the process of creating a new release
+# whenever a new version tag (e.g., v1.0.0, v1.2.3) is pushed to the repository.
+
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Triggers the workflow on push events to tags that match the pattern v*.*.*
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # This permission is required for the action to create a release.
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is automatically provided by GitHub
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: "See the commit history for details."
+          draft: false
+          prerelease: false
