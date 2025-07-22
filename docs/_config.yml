@@ -1,0 +1,14 @@
+title: SoloScripted - AI-Powered Game Development
+email: info@soloscripted.com
+description: >-
+  SoloScripted: Crafting innovative AI-powered games for mobile and web.
+  Explore unique gaming experiences.
+url: "https://soloscripted.com"
+baseurl: ""
+
+github_username: soloscripted
+twitter_username: soloscrptd
+linkedin_company: soloscripted
+
+plugins:
+  - jekyll-sitemap

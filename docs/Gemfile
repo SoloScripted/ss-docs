@@ -1,0 +1,15 @@
+source "https://rubygems.org"
+
+# Specify the version of Jekyll to use, aligning with GitHub Pages
+gem "jekyll", "~> 3.9.3"
+
+# GitHub Pages will use the latest version of this plugin.
+# For local development, it's good to specify a version.
+gem "jekyll-sitemap", "~> 1.4.0"
+
+gem "webrick", "~> 1.7"
+
+# Required by Jekyll 3.x with newer Ruby versions
+gem "csv"
+gem "base64"
+gem "bigdecimal"

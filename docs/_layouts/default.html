@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description | escape }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}" />
+    <meta property="og:title" content="{{ page.og_title | default: page.title | default: site.title }}">
+    <meta property="og:description"
+        content="{{ page.og_description | default: page.description | default: site.description | escape }}">
+    <meta property="og:image"
+        content="{{ site.url }}{{ site.baseurl }}{{ page.og_image | default: '/img/logo.png' }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.twitter_title | default: page.title | default: site.title }}">
+    <meta name="twitter:description"
+        content="{{ page.twitter_description | default: page.description | default: site.description | escape }}">
+    <meta name="twitter:image"
+        content="{{ site.url }}{{ site.baseurl }}{{ page.twitter_image | default: '/img/logo.png' }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/img/apple-touch-icon.png' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/img/favicon-32x32.png' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/img/favicon-16x16.png' | relative_url }}">
+    <link rel="manifest" href="{{ '/img/site.webmanifest' | relative_url }}">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        h1,
+        h2 {
+            padding-top: 2rem;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "SoloScripted",
+      "url": "https://soloscripted.com/",
+      "logo": "https://soloscripted.com/img/logo.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/soloscripted",
+        "https://github.com/soloscripted",
+        "https://x.com/soloscrptd"
+      ],
+      "description": "A solo game development studio specializing in crafting innovative AI-powered games for mobile and web platforms."
+    }
+    </script>
+</head>
+
+<body class="bg-gray-900 text-gray-200">
+    <header class="bg-gray-800 py-4 shadow-md fixed w-full top-0 z-10">
+        <nav class="container mx-auto px-4 flex items-center justify-between">
+            <a href="{{ '/' | relative_url }}" class="flex items-center">
+                <img src="{{ '/img/logo.png' | relative_url }}" alt="SoloScripted Logo" class="h-12 w-12" loading="lazy">
+                <span class="ml-2 text-blue-500 text-lg font-semibold">Solo<span
+                        class="text-white">Scripted</span></span>
+            </a>
+            <!-- Main navigation for homepage -->
+            <div class="flex items-center">
+                <ul class="hidden md:flex space-x-6">
+                    {% if page.url == "/" or page.url == "/index.html" or page.url == "/terms.html" or page.url == "/privacy.html" %}
+                    <li><a href="{{ '/' | relative_url }}#hero" class="hover:text-blue-500">Home</a></li>
+                    <li><a href="{{ '/' | relative_url }}#about" class="hover:text-blue-500">About</a></li>
+                    <li><a href="{{ '/' | relative_url }}#what-we-do" class="hover:text-blue-500">What We Do</a></li>
+                    <li><a href="{{ '/' | relative_url }}#games" class="hover:text-blue-500">Games</a></li>
+                    <li><a href="{{ '/' | relative_url }}#contact" class="hover:text-blue-500">Contact</a></li>
+                    {% else %}
+                    <li><a href="{{ '/' | relative_url }}#games" class="text-gray-300 hover:text-blue-500">Games</a></li>
+                    <li><a href="#hero" class="hover:text-blue-500">Sudokode</a></li>
+                    <li><a href="#features" class="hover:text-blue-500">Features</a></li>
+                    <li><a href="#faq" class="hover:text-blue-500">FAQ</a></li>
+                    {% endif %}
+                </ul>
+                <button class="md:hidden text-gray-300 focus:outline-none font-bold" id="menu-toggle">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-md py-2">
+                    <ul class="flex flex-col items-center space-y-2 bg-gray-800 font-bold">
+                        {% if page.url == "/" or page.url == "/index.html" %}
+                        <li><a href="{{ '/' | relative_url }}#hero" class="hover:text-blue-500 ">Home</a></li>
+                        <li><a href="{{ '/' | relative_url }}#about" class="hover:text-blue-500">About</a></li>
+                        <li><a href="{{ '/' | relative_url }}#what-we-do" class="hover:text-blue-500">What We Do</a></li>
+                        <li><a href="{{ '/' | relative_url }}#games" class="hover:text-blue-500">Games</a></li>
+                        <li><a href="{{ '/' | relative_url }}#contact" class="hover:text-blue-500">Contact</a></li>
+                        {% else %}
+                        <li><a href="{{ '/' | relative_url }}#games" class="text-gray-300 hover:text-blue-500">Games</a></li>
+                        <li><a href="#hero" class="hover:text-blue-500">Sudokode</a></li>
+                        <li><a href="#features" class="hover:text-blue-500">Features</a></li>
+                        <li><a href="#faq" class="hover:text-blue-500">FAQ</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-20 pb-20">
+        {{ content }}
+    </main>
+    <footer class="bg-gray-800 py-4 text-center text-gray-400 fixed bottom-0 w-full z-10">
+        <div class="container mx-auto px-4">
+            <div class="mb-4">
+                <a href="{{ '/terms.html' | relative_url }}" class="px-3 hover:text-white">Terms of Service</a>
+                <span class="border-r border-gray-600"></span>
+                <a href="{{ '/privacy.html' | relative_url }}" class="px-3 hover:text-white">Privacy Policy</a>
+                <span class="border-r border-gray-600"></span>
+                <a href="mailto:{{ site.email }}" class="px-3 hover:text-white">Contact Support</a>
+            </div>
+            <p>&copy; {{ 'now' | date: "%Y" }} soloscripted.com. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQBRKP1N3F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-SQBRKP1N3F');
+    </script>
+</body>
+
+</html>
