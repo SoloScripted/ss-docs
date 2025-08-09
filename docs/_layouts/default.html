@@ -75,7 +75,7 @@
             <!-- Main navigation for homepage -->
             <div class="flex items-center">
                 <ul class="hidden md:flex space-x-6">
-                    {% if page.url == "/" or page.url == "/index.html" or page.url == "/terms.html" or page.url == "/privacy.html" %}
+                    {% if page.url != "/sudokode.html" %}
                     <li><a href="{{ '/' | relative_url }}#hero" class="hover:text-blue-500">Home</a></li>
                     <li><a href="{{ '/' | relative_url }}#about" class="hover:text-blue-500">About</a></li>
                     <li><a href="{{ '/' | relative_url }}#what-we-do" class="hover:text-blue-500">What We Do</a></li>
@@ -97,7 +97,7 @@
                 </button>
                 <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-md py-2">
                     <ul class="flex flex-col items-center space-y-2 bg-gray-800 font-bold">
-                        {% if page.url == "/" or page.url == "/index.html" %}
+                        {% if page.url != "/sudokode.html" %}
                         <li><a href="{{ '/' | relative_url }}#hero" class="hover:text-blue-500 ">Home</a></li>
                         <li><a href="{{ '/' | relative_url }}#about" class="hover:text-blue-500">About</a></li>
                         <li><a href="{{ '/' | relative_url }}#what-we-do" class="hover:text-blue-500">What We Do</a></li>
