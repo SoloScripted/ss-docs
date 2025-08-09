@@ -39,4 +39,4 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Deploy to S3
-        run: aws s3 sync ./docs/_site s3://${{ vars.AWS_S3_SITE_BUCKET_NAME }} --delete
+        run: aws s3 sync ./docs/_site s3://${{ vars.AWS_S3_SITE_BUCKET_NAME }}/www --delete
