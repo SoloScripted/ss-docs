@@ -4,7 +4,7 @@
 JEKYLL_CMD = bundle exec jekyll
 SOURCE_DIR = docs
 
-.PHONY: all build serve clean doctor install help lint
+.PHONY: all build serve clean doctor install help lint release
 
 all: help
 
@@ -40,6 +40,27 @@ lint: doctor
 	@echo "--> Linting the generated HTML in docs/_site..."
 	cd $(SOURCE_DIR) && bundle exec htmlproofer ./_site --disable_external true
 
+# Creates a new git tag and pushes it to the remote origin to trigger a release.
+# Usage: make release TAG=vX.Y.Z
+release:
+	@if [ -z "$(TAG)" ]; then \
+		echo "Error: TAG is not set."; \
+		echo "Usage: make release TAG=vX.Y.Z"; \
+		exit 1; \
+	fi
+	@if ! git diff-index --quiet HEAD --; then \
+		echo "Error: Working directory is not clean. Please commit or stash your changes before tagging."; \
+		exit 1; \
+	fi
+	@if git rev-parse -q --verify "refs/tags/$(TAG)" >/dev/null; then \
+		echo "Error: Tag $(TAG) already exists."; \
+		exit 1; \
+	fi
+	@echo "--> Creating and pushing tag $(TAG)..."
+	@git tag $(TAG)
+	@git push origin $(TAG)
+	@echo "--> Tag $(TAG) has been created and pushed. This will trigger the release workflow."
+
 # Displays this help message.
 help:
 	@echo "Available targets:"
@@ -49,4 +70,5 @@ help:
 	@echo "  clean   - Remove generated files"
 	@echo "  doctor  - Check for site configuration issues"
 	@echo "  lint    - Lint the generated HTML"
+	@echo "  release - Tag and push a new release (e.g., TAG=v1.0.0)"
 	@echo "  help    - Show this help message"

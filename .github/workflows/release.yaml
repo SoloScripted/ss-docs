@@ -18,13 +18,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is automatically provided by GitHub
+      - name: Set up Ruby and install dependencies
+        uses: ruby/setup-ruby@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          ruby-version: '3.4.5'
+          bundler-cache: true
+          working-directory: './docs'
+
+      - name: Build site with Makefile
+        run: make build
+    
+      - name: Archive site artifacts
+        run: zip -r site-artifacts.zip ./docs/_site
+
+      - name: Create Release and Upload Artifacts
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
           body: "See the commit history for details."
-          draft: false
-          prerelease: false
+          files: site-artifacts.zip
+          generate_release_notes: true
