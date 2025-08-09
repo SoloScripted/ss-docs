@@ -22,3 +22,6 @@ jobs:
 
       - name: Build site with Makefile
         run: make build
+    
+      - name: Verify Site
+        run: make lint

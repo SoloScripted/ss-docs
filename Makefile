@@ -4,7 +4,7 @@
 JEKYLL_CMD = bundle exec jekyll
 SOURCE_DIR = docs
 
-.PHONY: all build serve clean doctor install help
+.PHONY: all build serve clean doctor install help lint
 
 all: help
 
@@ -35,6 +35,11 @@ doctor:
 	@echo "--> Checking for site configuration issues..."
 	cd $(SOURCE_DIR) && $(JEKYLL_CMD) doctor
 
+# Lints the generated HTML for issues like broken links and missing alt tags.
+lint: doctor
+	@echo "--> Linting the generated HTML in docs/_site..."
+	cd $(SOURCE_DIR) && bundle exec htmlproofer ./_site --disable_external true
+
 # Displays this help message.
 help:
 	@echo "Available targets:"
@@ -43,4 +48,5 @@ help:
 	@echo "  serve   - Serve the site locally with live-reload"
 	@echo "  clean   - Remove generated files"
 	@echo "  doctor  - Check for site configuration issues"
+	@echo "  lint    - Lint the generated HTML"
 	@echo "  help    - Show this help message"
