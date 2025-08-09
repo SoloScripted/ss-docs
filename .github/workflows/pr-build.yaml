@@ -1,0 +1,24 @@
+name: Pull Request Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby and install dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.6.9'
+          bundler-cache: true
+          working-directory: './docs'
+
+      - name: Build site with Makefile
+        run: make build
