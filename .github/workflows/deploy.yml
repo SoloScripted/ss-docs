@@ -40,3 +40,6 @@ jobs:
 
       - name: Deploy to S3
         run: aws s3 sync ./docs/_site s3://${{ vars.AWS_S3_SITE_BUCKET_NAME }}/www --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
